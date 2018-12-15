@@ -51,7 +51,7 @@ class UserFasor:
         self.countObj = self.countObj + 1
 
     def kosongNext(self):
-        if(self.indexing <= self.countObj):
+        if(self.indexing < self.countObj):
             return True
         else:
             return False
@@ -92,35 +92,45 @@ class UserFasor:
     def jumlahData(self):
         return self.countObj
 
-def loadDataset(filename,listUser):
+def loadDB(filename,listUser):
         with open(filename, 'r') as csvfile:
             lines = csv.reader(csvfile)
             dataUser = list(lines)
             for x in range(len(dataUser)):
                 listUser.pushFasor2(dataUser[x])
             
-        #listUser.iterNext()
-        print(listUser.getData())
-            
-            #print(dataUser)
 
-#deffindUsername():
+def findUsername(listUser,userBaru):
+    flag = 0
+    listUser.resetPos()
+    while(listUser.kosongNext()):
+        currUser = listUser.getData()
+        if(currUser[1] == userBaru[1]):
+            flag = 1
+        listUser.iterNext()
+
+    if(not flag):
+        listUser.pushFasor2(userBaru)
+        print("User Telah Berhasil Dibuat")
+    else:
+        print("User Sudah Ada")
 
 def main(argv):
     listUser = UserFasor()
-    loadDataset('fasor.data',listUser)
-    #print(listUser)
-        # userBaru=[]
-        # for x in range(len(sys.argv)-1):
-        # 	userBaru.append(int(sys.argv[x+1]))
-            
-        # neighbors = getNeighbors(trainingSet, testSet, k)
-        # result = getResponse(neighbors)
+    loadDB('fasor.data',listUser)
+    
+    userBaru=[]
+    userBaru.append(str(listUser.jumlahData()+1))
+    for x in range(len(sys.argv)-1):
+        userBaru.append(str(sys.argv[x+1]))
+    findUsername(listUser,userBaru)
+    
+    
+    listUser.resetPos()
+    while(listUser.kosongNext()):
+        print(listUser.getData())
+        listUser.iterNext()
 
-        # if(result == '2'):
-        #         print('Kanker JINAK')
-        # elif(result == '4'):
-        #         print('Kanker GANAS')
 
 if __name__ == "__main__":
     main(sys.argv[1:])
