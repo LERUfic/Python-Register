@@ -131,11 +131,5 @@ def main(argv):
         userBaru.append(str(sys.argv[x+1]))
     findUsername(listUser,userBaru)
     
-    
-    listUser.resetPos()
-    while(listUser.kosongNext()):
-        print(listUser.getData())
-        listUser.iterNext()
-
 if __name__ == "__main__":
     main(sys.argv[1:])
