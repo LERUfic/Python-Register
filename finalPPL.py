@@ -111,9 +111,15 @@ def findUsername(listUser,userBaru):
 
     if(not flag):
         listUser.pushFasor2(userBaru)
+        addToDB(userBaru,'fasor.data')
         print("User Telah Berhasil Dibuat")
     else:
         print("User Sudah Ada")
+
+def addToDB(userBaru,filename):
+    f = open("fasor.data","a+")
+    tulisan = "\n"+userBaru[0]+","+userBaru[1]+","+userBaru[2]+","+userBaru[3]+","+userBaru[4]+","+userBaru[5]+","+userBaru[6]+","+userBaru[7]+","+userBaru[8]+","+userBaru[9]
+    f.write(tulisan)
 
 def main(argv):
     listUser = UserFasor()
@@ -130,7 +136,6 @@ def main(argv):
     while(listUser.kosongNext()):
         print(listUser.getData())
         listUser.iterNext()
-
 
 if __name__ == "__main__":
     main(sys.argv[1:])
