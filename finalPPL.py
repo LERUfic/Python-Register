@@ -22,21 +22,7 @@ class UserFasor:
         self.role = []
 
 
-    def pushFasor(self,username,password,nama,alamat,nid,pathNID,tglLahir,noTelp,role):
-        self.pk.append(countObj)
-        self.username.append(username)
-        self.password.append(password)
-        self.nama.append(nama)
-        self.alamat.append(alamat)
-        self.nid.append(nid)
-        self.pathNID.append(pathNID)
-        self.tglLahir.append(tglLahir)
-        self.noTelp.append(noTelp)
-        self.role.append(role)
-
-        self.countObj = self.countObj + 1
-
-    def pushFasor2(self,data):
+    def pushFasor(self,data):
         self.pk.append(data[0])
         self.username.append(data[1])
         self.password.append(data[2])
@@ -97,7 +83,7 @@ def loadDB(filename,listUser):
             lines = csv.reader(csvfile)
             dataUser = list(lines)
             for x in range(len(dataUser)):
-                listUser.pushFasor2(dataUser[x])
+                listUser.pushFasor(dataUser[x])
             
 
 def findUsername(listUser,userBaru):
@@ -110,7 +96,7 @@ def findUsername(listUser,userBaru):
         listUser.iterNext()
 
     if(not flag):
-        listUser.pushFasor2(userBaru)
+        listUser.pushFasor(userBaru)
         addToDB(userBaru,'fasor.data')
         print("User Telah Berhasil Dibuat")
     else:
